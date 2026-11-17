@@ -1,0 +1,5 @@
+paper-to-deck
+paper-insight-analyst
+svg-illustrator
+technical-deck-builder
+deck-reviewer

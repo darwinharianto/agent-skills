@@ -1,34 +1,35 @@
 # Agent Skills
 
-Consolidated collection of reusable Antigravity agent skills.
+Consolidated collection of cross-agent skills following the open `SKILL.md` convention (compatible with Antigravity/Gemini, Claude Code, and OpenAI Codex).
 
 ## Available Skills
 
-- **`paper-insight-analyst/`** — First-principles architectural & motivational analysis of academic papers (`paper_text.md` → `insight_brief.json`).
-- **`technical-deck-builder/`** — Validates `insight_brief.json` against slide density rules and renders a 16:9 PowerPoint deck (`.pptx`) via `scripts/render_pptx.py`.
+### Paper-to-Deck Pipeline (`bundles/paper-to-deck.txt`)
+- **`paper-to-deck/`** — End-to-end orchestrator chaining the 4 deck skills in order.
+- **`paper-insight-analyst/`** — First-principles architectural & motivational analysis (`paper_text.md` → `insight_brief.json`).
+- **`svg-illustrator/`** — Generates quantitative SVG data visualizations and rasterizes them to PNGs.
+- **`technical-deck-builder/`** — Validates `insight_brief.json` and renders a 16:9 PowerPoint deck (`.pptx`) via `scripts/render_pptx.py`.
+- **`deck-reviewer/`** — Runs SVG word-density audit and 5-point visual QA on rasterized slides.
+
+### General Engineering & Research
 - **`paper-to-code-blueprint/`** — Translates a paper's mechanism and equations into a minimal, runnable PyTorch/NumPy reference implementation with tensor-shape annotations and invariant tests.
 - **`pr-review-checklist/`** — Audits git diffs and PRs for correctness, edge cases, security, scope, and test verification before committing.
 - **`skill-author/`** — Enforces `agent-skills` conventions (portable paths, `requirements.txt`, trigger descriptions, and verification steps) when creating or updating skills.
 
 ## Installation
 
-### Global (available in all workspaces)
+Use `./install.sh` to symlink a bundle or single skill into any project or global agent directory:
 
 ```bash
-cp -r paper-insight-analyst technical-deck-builder ~/.gemini/config/skills/
-```
+# Link the full 5-skill paper-to-deck bundle into a project (Antigravity)
+./install.sh paper-to-deck /path/to/project --target antigravity
 
-Or symlink them so `git pull` updates all workspaces automatically:
+# Link using the universal .agents/skills standard (Codex + Antigravity)
+./install.sh paper-to-deck /path/to/project --target universal
 
-```bash
-mkdir -p ~/.gemini/config/skills
-ln -sfn "$(pwd)/paper-insight-analyst" ~/.gemini/config/skills/paper-insight-analyst
-ln -sfn "$(pwd)/technical-deck-builder" ~/.gemini/config/skills/technical-deck-builder
-```
+# Link for Claude Code
+./install.sh paper-to-deck /path/to/project --target claude
 
-### Project-local (checked into a specific repo)
-
-```bash
-mkdir -p /path/to/project/.agent/skills
-cp -r paper-insight-analyst technical-deck-builder /path/to/project/.agent/skills/
+# Link globally across all workspaces (--global)
+./install.sh pr-review-checklist --global --target universal
 ```
