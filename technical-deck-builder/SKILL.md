@@ -29,6 +29,10 @@ Before rendering, verify `workspace/insight_brief.json` satisfies every density 
 
 ## Execution Workflow
 
+### Prerequisites
+
+Ensure `python-pptx` and `pydantic` are installed in the active Python environment (e.g., `pip install -r <skill-dir>/requirements.txt` if missing).
+
 ### Step 1: Validate `workspace/insight_brief.json`
 
 Run the deterministic Pydantic validator first:
