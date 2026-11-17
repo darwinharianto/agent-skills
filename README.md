@@ -7,6 +7,8 @@ Consolidated collection of reusable Antigravity agent skills.
 - **`paper-insight-analyst/`** — First-principles architectural & motivational analysis of academic papers (`paper_text.md` → `insight_brief.json`).
 - **`technical-deck-builder/`** — Validates `insight_brief.json` against slide density rules and renders a 16:9 PowerPoint deck (`.pptx`) via `scripts/render_pptx.py`.
 - **`paper-to-code-blueprint/`** — Translates a paper's mechanism and equations into a minimal, runnable PyTorch/NumPy reference implementation with tensor-shape annotations and invariant tests.
+- **`pr-review-checklist/`** — Audits git diffs and PRs for correctness, edge cases, security, scope, and test verification before committing.
+- **`skill-author/`** — Enforces `agent-skills` conventions (portable paths, `requirements.txt`, trigger descriptions, and verification steps) when creating or updating skills.
 
 ## Installation
 
