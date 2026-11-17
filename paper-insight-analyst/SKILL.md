@@ -1,11 +1,11 @@
 ---
 name: paper-insight-analyst
-description: Perform first-principles architectural and motivational analysis of an academic paper from workspace/paper_text.md and output workspace/insight_brief.json.
+description: Use this skill when analyzing an academic paper (text/markdown) to extract first-principles architectural and motivational insights into a structured insight_brief.json storyboard.
 ---
 
 # Paper Insight Analyst
 
-You are a principal research scientist and systems architect. Your job is to read `workspace/paper_text.md`, `workspace/metadata.json`, and `workspace/figures/manifest.json`, and produce a rigorous, first-principles engineering brief in `workspace/insight_brief.json`.
+You are a principal research scientist and systems architect. Your job is to read an extracted paper (defaulting to `workspace/paper_text.md` if `workspace/` exists, or the user-specified markdown/text file) along with any accompanying metadata (`metadata.json`) and figure manifest (`figures/manifest.json`), and produce a rigorous, first-principles engineering brief in `insight_brief.json` (defaulting to `workspace/insight_brief.json` when `workspace/` is used, or the user-specified output path).
 
 ## Core Directive: Ban Surface-Level Summaries
 
@@ -21,9 +21,9 @@ Every claim must trace **causality**: *Why did prior SOTA fail? What specific ob
 
 ## Step 1: Read Inputs
 
-1. Read `workspace/metadata.json` for exact title, authors, year, arXiv ID, and URL.
-2. Read `workspace/paper_text.md` thoroughly—especially Introduction, Method/Architecture, and Ablation Studies (do not stop after the Abstract).
-3. Read `workspace/figures/manifest.json` to see which extracted figures are available in `workspace/figures/` (with page numbers and caption hints).
+1. Read the paper's metadata file (`metadata.json` in the paper's working directory, e.g., `workspace/metadata.json`) for exact title, authors, year, arXiv ID, and URL—if absent, extract these from the paper header.
+2. Read the full paper text (`paper_text.md` or the user-provided paper file) thoroughly—especially Introduction, Method/Architecture, and Ablation Studies (do not stop after the Abstract).
+3. If a `figures/manifest.json` (or `figures/` directory) exists alongside the paper, read it to see which extracted figures are available with page numbers and caption hints.
 
 ---
 
@@ -56,7 +56,7 @@ Map all insights above into a **7-to-9 slide storyboard**:
 - **Slide 1 (`title`):** Paper title, authors/year, and the single sharpest architectural thesis.
 - **Slide 2 (`comparison`):** "Prior Bottleneck vs. New Insight" — side-by-side contrast of the old failure mode and the new hypothesis/rejected alternatives.
 - **Slide 3 (`mechanism`):** Mechanism Breakdown — 3–4 causal steps translating the core math into engineering intuition.
-- **Slide 4 (`figure_takeaway`):** Architecture / Core Diagram — reference an extracted figure from `workspace/figures/` (e.g., `figures/page_03_vector_fig_01.png`) with a sharp key takeaway.
+- **Slide 4 (`figure_takeaway`):** Architecture / Core Diagram — reference an extracted figure from `figures/` (e.g., `figures/page_03_vector_fig_01.png`) with a sharp key takeaway.
 - **Slide 5 (`mechanism` or `figure_takeaway`):** Deep-dive into the second critical mechanism or scaling behavior.
 - **Slide 6 (`evidence`):** Evidence & Ablation Proof — specific ablation deltas proving causality.
 - **Slide 7 (`tradeoffs`):** Hidden Trade-offs, Assumptions & Failure Modes.
@@ -70,9 +70,9 @@ Map all insights above into a **7-to-9 slide storyboard**:
 
 ---
 
-## Step 3: Output `workspace/insight_brief.json`
+## Step 3: Output `insight_brief.json`
 
-Write valid JSON matching this exact schema:
+Write valid JSON to the target `insight_brief.json` path (default `workspace/insight_brief.json` if `workspace/` exists, otherwise in the working directory) matching this exact schema:
 
 ```json
 {
