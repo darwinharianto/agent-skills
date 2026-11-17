@@ -4,8 +4,9 @@ Consolidated collection of reusable Antigravity agent skills.
 
 ## Available Skills
 
-- **`paper-insight-analyst/`** — First-principles architectural & motivational analysis of academic papers (`workspace/paper_text.md` → `workspace/insight_brief.json`).
-- **`technical-deck-builder/`** — Validates `workspace/insight_brief.json` against slide density rules and renders a 16:9 PowerPoint deck (`workspace/output_deck.pptx`) via `scripts/render_pptx.py`.
+- **`paper-insight-analyst/`** — First-principles architectural & motivational analysis of academic papers (`paper_text.md` → `insight_brief.json`).
+- **`technical-deck-builder/`** — Validates `insight_brief.json` against slide density rules and renders a 16:9 PowerPoint deck (`.pptx`) via `scripts/render_pptx.py`.
+- **`paper-to-code-blueprint/`** — Translates a paper's mechanism and equations into a minimal, runnable PyTorch/NumPy reference implementation with tensor-shape annotations and invariant tests.
 
 ## Installation
 
