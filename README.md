@@ -39,7 +39,27 @@ ln -sfn /path/to/agent-skills/rules/observable-code.md /path/to/project/CLAUDE.m
 
 ## Installation
 
-Use `./install.sh` to symlink a bundle or single skill into any project or global agent directory:
+### Remote Modular Install (No Git Clone Needed)
+
+Fetch only the bundle, individual skills, and/or rules you want straight into any project (or global config):
+
+```bash
+# List available bundles, skills, and rules
+curl -fsSL https://raw.githubusercontent.com/darwinharianto/agent-skills/main/fetch.sh | bash -s -- --list
+
+# Fetch only the observability bundle into the current project (.agents/skills/)
+curl -fsSL https://raw.githubusercontent.com/darwinharianto/agent-skills/main/fetch.sh | bash -s -- observability
+
+# Pick specific skills + install the observable-code rule (CLAUDE.md) for Claude Code
+curl -fsSL https://raw.githubusercontent.com/darwinharianto/agent-skills/main/fetch.sh | bash -s -- arch-mapper pr-review-checklist --rule observable-code --target claude
+
+# Install a bundle globally across all workspaces (--global)
+curl -fsSL https://raw.githubusercontent.com/darwinharianto/agent-skills/main/fetch.sh | bash -s -- observability --global --target universal
+```
+
+### Local Symlink Install (For Live Skill Development)
+
+Use `./install.sh` from a local clone to symlink bundles or skills into a project or global agent directory:
 
 ```bash
 # Link the full 5-skill paper-to-deck bundle into a project (Antigravity)
